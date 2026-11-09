@@ -27,7 +27,7 @@ OFFICIAL_LINKS = {
 
 INTENTS = {
     "cash_tight": "Money is short this month / SIP date comes before salary / unexpected expense",
-    "payment_failed": "Autopay, mandate or instalment failed or is pending",
+    "payment_failed": "Autopay, mandate or instalment failed or is pending, including money debited from bank but SIP shows failed/pending or units not allotted",
     "bounce_charge": "Bank or platform charged a penalty for a failed debit",
     "value_down": "Portfolio value or returns are down / negative / lower than expected",
     "metric_confusion": "Does not understand XIRR, NAV, units, absolute returns, current value",
@@ -49,6 +49,13 @@ FACTS YOU MAY USE (general, platform rules vary - always tell the user to confir
 - Absolute return = (current value - amount invested) / amount invested. It ignores time.
 - XIRR = an annualised return that accounts for the date of each instalment. For investments under about a year it can look extreme (very high or very low), so many apps show absolute return instead.
 - NAV = price of one unit of the fund. Units = how many units you hold. Current value = units x latest NAV.
+- MONEY DEBITED BUT SIP SHOWS FAILED / PENDING / UNITS NOT ALLOTTED: this is common and usually not lost money.
+  (a) Pending: units are allotted only after the money reaches the fund house and the NAV is applied, which can take 1-3 working days. Status often updates by itself.
+  (b) Failed after debit: the bank or payment partner usually reverses (refunds) the amount automatically, often within about 5-7 working days; the exact time depends on the bank.
+  (c) If neither happens: contact the app's support with the date and amount (no need to share full account numbers in public); keep the bank SMS/statement line as proof.
+  (d) If support does not resolve it, investors can escalate a complaint on SEBI SCORES (scores.sebi.gov.in).
+  Do NOT say there is "no fee" in this situation, and do not tell them to pay again until the status is clear (or they may be charged twice).
+- Never claim something is free of charge if the user says the bank has already charged a fee.
 - Withdrawing (redeeming) units may attract an exit load if done within the fund's exit-load period, and may have tax implications. Details are in the fund's scheme documents.
 """
 
