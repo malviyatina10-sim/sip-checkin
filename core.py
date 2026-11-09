@@ -52,8 +52,9 @@ FACTS YOU MAY USE (general, platform rules vary - always tell the user to confir
 - MONEY DEBITED BUT SIP SHOWS FAILED / PENDING / UNITS NOT ALLOTTED: this is common and usually not lost money.
   (a) Pending: units are allotted only after the money reaches the fund house and the NAV is applied, which can take 1-3 working days. Status often updates by itself.
   (b) Failed after debit: the bank or payment partner usually reverses (refunds) the amount automatically, often within about 5-7 working days; the exact time depends on the bank.
-  (c) If neither happens: contact the app's support with the date and amount (no need to share full account numbers in public); keep the bank SMS/statement line as proof.
-  (d) If support does not resolve it, investors can escalate a complaint on SEBI SCORES (scores.sebi.gov.in).
+  (c) Inform the BANK as well: call or message the bank's customer care with the debit date, amount and the transaction/UTR reference from the bank SMS, and ask them to trace or reverse it.
+  (d) Contact the app's support with the date and amount (no need to share full account numbers); keep the bank SMS or statement line as proof.
+  (e) If neither resolves it, investors can escalate a complaint on SEBI SCORES (scores.sebi.gov.in).
   Do NOT say there is "no fee" in this situation, and do not tell them to pay again until the status is clear (or they may be charged twice).
 - Never claim something is free of charge if the user says the bank has already charged a fee.
 - Withdrawing (redeeming) units may attract an exit load if done within the fund's exit-load period, and may have tax implications. Details are in the fund's scheme documents.
@@ -271,8 +272,19 @@ def check_in(msg, sip_date=None, salary_date=None):
         result["reason"] = "I'm not confident I understood your situation."
         return result
 
+    extra = ("Date check: " + hint) if hint else ""
+    if re.search(r"(debit|deduct|cut|taken|gone|withdrawn).{0,60}(fail|pending|not (allot|show|credit|invest)|unit)|"
+                 r"(fail|pending).{0,60}(debit|deduct|cut|taken)", msg, re.I):
+        extra += ("\nThis user's money LEFT their bank but the SIP failed or is pending. Your options MUST be, in this order: "
+                  "1) Wait a few working days: it may update to success (units allotted) or the amount is usually refunded to the bank "
+                  "automatically, often within about 5-7 working days; "
+                  "2) Inform your bank with the date, amount and UTR/reference from the bank SMS so they can trace or reverse it; "
+                  "3) Contact the app's support with the same details; "
+                  "4) If still unresolved, raise a complaint on SEBI SCORES. "
+                  "Reassure calmly that this is common and the money is usually not lost. Do not suggest skip/pause/cancel here, "
+                  "and do not tell them to pay again until the status is clear.")
     ans = ask_json(ANSWER_PROMPT.format(knowledge=KNOWLEDGE, intent=INTENTS[c["intent"]],
-                                        date_hint=("Date check: " + hint) if hint else "", msg=msg), temperature=0.3)
+                                        date_hint=extra, msg=msg), temperature=0.3)
     checks = safety_check(ans)
     result.update(answer=ans, checks=checks)
     if not all(checks.values()):
