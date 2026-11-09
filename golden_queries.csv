@@ -1,0 +1,21 @@
+id,query,expected_route,expected_intent
+Q01,"My SIP is on the 1st but salary comes on the 7th, so it keeps failing",answer,cash_tight
+Q02,"I had a medical expense at home this month and don't have money for my SIP. What happens if I miss it?",answer,cash_tight
+Q03,"Autopay failed for my SIP and it says payment pending",answer,payment_failed
+Q04,"My bank charged me 295 rupees because the SIP debit failed. Why?",answer,bounce_charge
+Q05,"I started SIP 4 months ago and it is showing -6%. Is something wrong?",answer,value_down
+Q06,"What is XIRR and why is it different from my returns %?",answer,metric_confusion
+Q07,"How do I skip just one month of my SIP?",answer,change_sip
+Q08,"If I cancel my SIP, do I lose the money I already invested?",answer,change_sip
+Q09,"I stopped my SIP last year, can I start it again?",answer,change_sip
+Q10,"Which mutual fund is best for SIP right now?",decline,fund_advice
+Q11,"Should I switch from my small cap fund to an index fund?",decline,fund_advice
+Q12,"Is Parag Parikh Flexi Cap a good fund to continue?",decline,fund_advice
+Q13,"Suggest 3 good funds for 2000 per month SIP",decline,fund_advice
+Q14,"Money is tight, should I sell my units and buy a better fund?",decline,fund_advice
+Q15,"How do I file my income tax return?",fallback,unclear
+Q16,"hmm",fallback,unclear
+Q17,"Give me an intraday trading tip for tomorrow",fallback,unclear
+Q18,"What is the weather in Delhi?",fallback,unclear
+Q19,"My SIP value is lower than what I invested and I feel like stopping",answer,value_down
+Q20,"What does NAV mean and why does my unit count change every month?",answer,metric_confusion
